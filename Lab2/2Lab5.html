@@ -1,0 +1,48 @@
+<html>
+ <head>
+ <title></title>
+ <script src="jquery-3.6.0.min.js">
+</script>
+</head>
+<body>
+<form>
+
+<div class="drag">
+<div id="meow">
+<img src="image/cat.png" height="300" width="350" ></img>
+</div>
+</div>
+</form>
+<script>
+	let meow = document.getElementById('meow'); 
+	meow.onmousedown = function(e) { 
+	 let coords = getCoords(meow); 
+	let shiftX = e.pageX - coords.left; 
+	let shiftY = e.pageY - coords.top; 
+	meow.style.position = 'absolute'; 
+	document.body.appendChild(meow); 
+	moveAt(e); 
+	meow.style.zIndex = 1000;
+	function moveAt(e) { 
+	meow.style.left = e.pageX - shiftX + 'px'; 
+	meow.style.top = e.pageY - shiftY + 'px'; } 
+	document.onmousemove = function(e) { 
+	 moveAt(e); 
+	}; 
+	meow.onmouseup = function() { 
+	document.onmousemove = null; 
+	meow.onmouseup = null; 
+	}; 
+	} 
+	meow.ondragstart = function() { return false; }; 
+	function getCoords(elem) { 
+	let box = elem.getBoundingClientRect(); 
+	return { 
+	top: box.top + pageYOffset, 
+	left: box.left + pageXOffset 
+  }; 
+ } 
+</script>
+</p>
+</body>
+</html> 
